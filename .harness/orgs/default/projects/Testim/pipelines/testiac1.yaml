@@ -42,3 +42,7 @@ pipeline:
                   spec:
                     command: apply
         tags: {}
+  delegateSelectors:
+    - iacm-devspace-delegate
+    - krishnasindhur-delegate-vgwxk
+    - kubernetes-delegate
