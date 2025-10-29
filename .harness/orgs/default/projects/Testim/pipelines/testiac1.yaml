@@ -44,3 +44,12 @@ pipeline:
         tags: {}
   delegateSelectors:
     - kubernetes-delegate
+    - iacm-devspace-delegate
+    - krishnasindhur-delegate-vgwxk
+  properties:
+    ci:
+      codebase:
+        connectorRef: test
+        repoName: test-iac
+        build: <+input>
+        sparseCheckout: []
