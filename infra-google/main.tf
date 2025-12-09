@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "google" {
-  project = var.project_id
+  project = "harness-demo-480718"
   region  = "us-west1"
   zone    = "us-west1-a"
 }
