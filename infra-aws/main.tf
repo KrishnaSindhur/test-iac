@@ -39,7 +39,7 @@ module "ec2_web" {
 
   name          = "web-server"
   instance_type = "t2.micro"
-  ami           = "ami-0c02fb55b8a5c4bbd"
+  ami           = "ami-07860a2d7eb515d9a"
 
   tags = {
     Role = "web"
@@ -52,7 +52,7 @@ module "ec2_app" {
 
   name          = "app-server"
   instance_type = "t2.micro"
-  ami           = "ami-0c02fb55b8a5c4bbd"
+  ami           = "ami-07860a2d7eb515d9a"
 
   tags = {
     Role = "app"
@@ -65,7 +65,7 @@ module "ec2_db" {
 
   name          = "db-server"
   instance_type = "t2.small"
-  ami           = "ami-0c02fb55b8a5c4bbd"
+  ami           = "ami-07860a2d7eb515d9a"
 
   tags = {
     Role = "database"
