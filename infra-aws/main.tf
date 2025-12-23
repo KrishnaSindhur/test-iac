@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "aws" {
-  region = var.aws_region
+  region = "us-east-1"
 }
 
 # S3 bucket module - called once
@@ -37,10 +37,9 @@ module "ec2_web" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "5.0.0"
 
-  name = "web-server"
-
+  name          = "web-server"
   instance_type = "t2.micro"
-  ami           = var.ami_id
+  ami           = "ami-0c02fb55b8a5c4bbd"
 
   tags = {
     Role = "web"
@@ -51,10 +50,9 @@ module "ec2_app" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "5.0.0"
 
-  name = "app-server"
-
+  name          = "app-server"
   instance_type = "t2.micro"
-  ami           = var.ami_id
+  ami           = "ami-0c02fb55b8a5c4bbd"
 
   tags = {
     Role = "app"
@@ -65,10 +63,9 @@ module "ec2_db" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "5.0.0"
 
-  name = "db-server"
-
+  name          = "db-server"
   instance_type = "t2.small"
-  ami           = var.ami_id
+  ami           = "ami-0c02fb55b8a5c4bbd"
 
   tags = {
     Role = "database"
