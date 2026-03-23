@@ -1,15 +1,6 @@
 # IAM role for CloudWatch access
 # This file mimics the structure from the error: .terraform/modules/test-scs.cloudwatch/role.tf
 
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-  }
-}
-
 resource "aws_iam_role" "cloudwatch_role" {
   name = "cloudwatch-monitoring-role"
 
@@ -62,8 +53,4 @@ resource "aws_iam_role_policy" "cloudwatch_custom_policy" {
       }
     ]
   })
-}
-
-# Empty provider block on line 65 to match the error pattern
-provider "aws" {
 }
