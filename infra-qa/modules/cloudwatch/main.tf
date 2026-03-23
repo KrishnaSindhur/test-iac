@@ -10,37 +10,33 @@ terraform {
   }
 }
 
-# Deprecated empty provider block - triggers warning in OpenTofu
+# Deprecated empty provider block - triggers warning in OpenTofu validate
 provider "aws" {
 }
 
-# Another aliased empty provider block
+# Another aliased empty provider block  
 provider "aws" {
   alias = "monitoring_cluster"
 }
 
-resource "aws_cloudwatch_log_group" "app_logs" {
-  name              = "/app/logs"
-  retention_in_days = 7
+# Local-only resources that don't require AWS API calls
+variable "environment" {
+  type    = string
+  default = "qa"
+}
 
-  tags = {
-    Environment = "qa"
-    Application = "demo"
+locals {
+  log_group_name = "/app/${var.environment}/logs"
+  alarm_config = {
+    name      = "high-cpu-utilization"
+    threshold = 80
   }
 }
 
-resource "aws_cloudwatch_metric_alarm" "cpu_alarm" {
-  alarm_name          = "high-cpu-utilization"
-  comparison_operator = "GreaterThanThreshold"
-  evaluation_periods  = 2
-  metric_name         = "CPUUtilization"
-  namespace           = "AWS/EC2"
-  period              = 300
-  statistic           = "Average"
-  threshold           = 80
-  alarm_description   = "This alarm monitors EC2 CPU utilization"
+output "log_group_name" {
+  value = local.log_group_name
+}
 
-  dimensions = {
-    AutoScalingGroupName = "demo-asg"
-  }
+output "alarm_config" {
+  value = local.alarm_config
 }
