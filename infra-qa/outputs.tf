@@ -52,3 +52,13 @@ output "db_security_group_id" {
   description = "ID of the database security group"
   value       = module.sg_db.security_group_id
 }
+
+output "cloudwatch_log_group_arn" {
+  description = "ARN of the CloudWatch log group"
+  value       = module.cloudwatch.log_group_arn
+}
+
+output "cloudwatch_alarm_arn" {
+  description = "ARN of the CloudWatch alarm"
+  value       = module.cloudwatch.alarm_arn
+}

@@ -129,3 +129,18 @@ module "sg_db" {
   ingress_rules       = ["mysql-tcp"]
   egress_rules        = ["all-all"]
 }
+
+# Local cloudwatch module with deprecated empty provider blocks
+# This triggers "Redundant empty provider block" warning in OpenTofu validate
+module "cloudwatch" {
+  source = "./modules/cloudwatch"
+}
+
+# Nested module call to increase warning count
+module "cloudwatch_backup" {
+  source = "./modules/cloudwatch"
+}
+
+module "cloudwatch_audit" {
+  source = "./modules/cloudwatch"
+}
