@@ -2,25 +2,22 @@ terraform {
   required_version = ">= 1.6.0"
 }
 
-# (1) Generate a massive plan diff — tune the count to exceed your 5k-line cap.
+# (1) Large VALID plan diff that renders BEFORE the failure.
+#     OpenTofu's range() rejects more than 1024 values, so 1024 is the max
+#     we can generate in a single call. 1024 instances * ~7 rendered lines
+#     each => ~7k lines of plan output (comfortably above a 4k cap).
 resource "terraform_data" "noise" {
-  for_each = { for i in range(3000) : tostring(i) => i }
+  for_each = { for i in range(1024) : tostring(i) => i }
 
   input = join(",", [for n in range(20) : "field-${n}-value-${each.key}"])
 }
 
-# (2) Defer the type error to graph-walk time so it prints AFTER the diff.
-variable "raw_sheets" {
-  type = any
-  default = [
-    { sheet_id = "s1", name = "Overview" },
-    { sheet_id = "s2" },                                 # different object shape
-    { sheet_id = "s3", name = "Extra", color = "blue" },
-  ]
-}
+# (2) Force a plan-time failure that prints AFTER the big diff above.
+#     range() errors on more than 1024 values, so this always fails at plan.
+#     OpenTofu still renders the successful resources first, then this error
+#     ("planned the following actions, but then encountered a problem").
+resource "terraform_data" "boom" {
+  for_each = toset([for i in range(2000) : tostring(i)])
 
-resource "terraform_data" "dashboard" {
-  # tolist() over a tuple of differently-shaped objects raises
-  # "all list elements must have the same type" during plan evaluation.
-  input = tolist(var.raw_sheets)
+  input = each.key
 }
