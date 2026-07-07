@@ -6,7 +6,7 @@ ENV="${1:-dev}"
 
 cd "$ROOT"
 
-echo "=== terragrunt run-all plan (env=$ENV, tfvars auto-loaded) ==="
+echo "=== terragrunt run-all plan (env=$ENV) ==="
 terragrunt run-all plan --terragrunt-working-dir "environments/$ENV"
 
 echo ""

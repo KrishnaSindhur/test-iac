@@ -13,5 +13,5 @@ inputs = {
   project      = "simple-tg"
   bucket_name  = "test-iac-dev-bucket-unique"
   access_key   = "AKIADEVEXAMPLE123"
-  aws_region   = "us-east-1"
+  aws_region   = "us-west-1"
 }

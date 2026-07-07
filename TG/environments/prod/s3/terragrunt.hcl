@@ -13,5 +13,5 @@ inputs = {
   project      = "enterprise-app"
   bucket_name  = "test-iac-prod-bucket-unique"
   access_key   = "AKIAPRODEXAMPLE789"
-  aws_region   = "us-east-1"
+  aws_region   = "us-west-1"
 }

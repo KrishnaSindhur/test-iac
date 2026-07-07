@@ -14,5 +14,5 @@ inputs = {
   instance_type = "t2.small"
   bucket_name   = "test-iac-prod-bucket-default"
   db_password   = "ProdPassword456!"
-  aws_region    = "us-east-1"
+  aws_region    = "us-west-1"
 }

@@ -37,7 +37,7 @@ variable "bucket_name" {
 variable "aws_region" {
   description = "AWS region"
   type        = string
-  default     = "us-east-1"
+  default     = "us-west-1"
 }
 
 variable "instance_count" {
@@ -51,7 +51,7 @@ variable "tags" {
 }
 
 variable "region" {
-  default = "us-east-1"
+  default = "us-west-1"
 }
 
 variable "vpc_id" {
