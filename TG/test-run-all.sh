@@ -6,10 +6,11 @@ ENV="${1:-dev}"
 
 cd "$ROOT"
 
-echo "=== terragrunt run-all plan (env=$ENV) ==="
-terragrunt run-all plan --terragrunt-working-dir "environments/$ENV"
+echo "=== terragrunt plan --all (env=$ENV) ==="
+cd "environments/$ENV"
+terragrunt plan --all --non-interactive
 
 echo ""
-echo "=== terragrunt run-all apply (env=$ENV) ==="
+echo "=== terragrunt apply --all (env=$ENV) ==="
 echo "Uncomment the line below to apply:"
-echo "terragrunt run-all apply --terragrunt-working-dir environments/$ENV"
+echo "cd environments/$ENV && terragrunt apply --all --non-interactive"
