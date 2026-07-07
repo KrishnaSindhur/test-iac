@@ -2,7 +2,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 5.6"
+      version = "~> 5.0"
     }
     random = {
       source  = "hashicorp/random"
@@ -50,7 +50,7 @@ resource "random_id" "bucket_suffix" {
 # EC2 module - called 3 times (3 invocations)
 module "ec2_web" {
   source  = "terraform-aws-modules/ec2-instance/aws"
-  version = "5.0.0"
+  version = "~> 5.6"
 
   name                   = "web-server"
   instance_type          = "t2.micro"
@@ -64,7 +64,7 @@ module "ec2_web" {
 
 module "ec2_app" {
   source  = "terraform-aws-modules/ec2-instance/aws"
-  version = "5.0.0"
+  version = "~> 5.6"
 
   name                   = "app-server"
   instance_type          = "t2.micro"
@@ -78,7 +78,7 @@ module "ec2_app" {
 
 module "ec2_db" {
   source  = "terraform-aws-modules/ec2-instance/aws"
-  version = "5.0.0"
+  version = "~> 5.6"
 
   name                   = "db-server"
   instance_type          = "t2.small"
