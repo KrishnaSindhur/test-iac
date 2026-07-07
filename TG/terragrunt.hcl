@@ -2,8 +2,16 @@
 # State: omit remote_state so Harness IaCM manages backend/state automatically.
 
 locals {
-  # TG/environments/{dev|prod}/{module} -> auto-picks testOverrideFiles/{dev|prod}.tfvars
-  environment = basename(dirname(get_terragrunt_dir()))
+  # Parse TG/environments/{dev|prod}/{module} from the child path.
+  # Do NOT use basename(dirname(...)) — in Harness the parent dir is /harness,
+  # which incorrectly resolves to "harness.tfvars".
+  relative_path = path_relative_to_include()
+  path_parts    = local.relative_path == "." ? [] : split("/", local.relative_path)
+  environment = (
+    length(local.path_parts) >= 2 && local.path_parts[0] == "environments"
+    ? local.path_parts[1]
+    : "prod"
+  )
   tfvars_file = "${get_parent_terragrunt_dir()}/testOverrideFiles/${local.environment}.tfvars"
 }
 
