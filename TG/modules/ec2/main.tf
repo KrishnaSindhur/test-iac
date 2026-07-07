@@ -58,8 +58,16 @@ variable "vpc_id" {
   default = ""
 }
 
+variable "subnet_id" {
+  description = "Subnet for the EC2 instance. If empty, a default subnet is created in the default VPC."
+  type        = string
+  default     = ""
+}
+
 variable "use_default_vpc" {
-  default = false
+  description = "When true and subnet_id is empty, create a default subnet in the default VPC."
+  type        = bool
+  default     = true
 }
 
 variable "ebs_volume_size" {
@@ -90,6 +98,16 @@ locals {
   }
 
   instance_name = "test-iac-${var.project}-${var.environment}-instance"
+  subnet_id     = var.subnet_id != "" ? var.subnet_id : aws_default_subnet.default[0].id
+}
+
+data "aws_availability_zones" "available" {
+  state = "available"
+}
+
+resource "aws_default_subnet" "default" {
+  count             = var.subnet_id == "" && var.use_default_vpc ? 1 : 0
+  availability_zone = data.aws_availability_zones.available.names[0]
 }
 
 data "aws_ami" "amazon_linux" {
@@ -111,6 +129,7 @@ data "aws_ami" "amazon_linux" {
 resource "aws_instance" "main" {
   ami           = var.ami_id != "" ? var.ami_id : data.aws_ami.amazon_linux[0].id
   instance_type = var.instance_type
+  subnet_id     = local.subnet_id
 
   tags = merge(local.common_tags, {
     Name = local.instance_name
