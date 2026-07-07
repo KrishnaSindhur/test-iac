@@ -98,7 +98,7 @@ locals {
   }
 
   instance_name = "test-iac-${var.project}-${var.environment}-instance"
-  subnet_id     = var.subnet_id != "" ? var.subnet_id : aws_default_subnet.default[0].id
+  subnet_id     = var.subnet_id != "" ? var.subnet_id : one(aws_default_subnet.default[*].id)
 }
 
 data "aws_availability_zones" "available" {
