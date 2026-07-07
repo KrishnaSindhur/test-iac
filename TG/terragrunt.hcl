@@ -1,20 +1,10 @@
 # Root Terragrunt configuration (referenced by child modules via find_in_parent_folders)
+# State: omit remote_state so Harness IaCM manages backend/state automatically.
 
 locals {
   # TG/environments/{dev|prod}/{module} -> auto-picks testOverrideFiles/{dev|prod}.tfvars
   environment = basename(dirname(get_terragrunt_dir()))
   tfvars_file = "${get_parent_terragrunt_dir()}/testOverrideFiles/${local.environment}.tfvars"
-}
-
-remote_state {
-  backend = "local"
-  config = {
-    path = "${get_parent_terragrunt_dir()}/states/${path_relative_to_include()}/terraform.tfstate"
-  }
-  generate = {
-    path      = "backend.tf"
-    if_exists = "overwrite_terragrunt"
-  }
 }
 
 generate "provider" {
