@@ -65,6 +65,13 @@ resource "aws_instance" "main" {
     Name    = "${var.project}-instance-${count.index + 1}"
     Project = var.project
   }
+
+  # A newer Amazon Linux AMI (most_recent = true) would otherwise force-replace
+  # the instances on every apply. Ignore post-create AMI changes so existing
+  # instances are kept and re-applies are idempotent (no destroy/create churn).
+  lifecycle {
+    ignore_changes = [ami]
+  }
 }
 
 output "instance_ids" {
