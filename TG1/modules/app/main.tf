@@ -1,13 +1,3 @@
-terraform {
-  required_version = ">= 1.0"
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-  }
-}
-
 variable "aws_region" {
   type    = string
   default = "us-west-1"
@@ -26,17 +16,6 @@ variable "instance_type" {
 variable "project" {
   type    = string
   default = "test-iac-tg1"
-}
-
-provider "aws" {
-  region = var.aws_region
-
-  default_tags {
-    tags = {
-      ManagedBy = "Terragrunt"
-      Project   = var.project
-    }
-  }
 }
 
 data "aws_availability_zones" "available" {
@@ -83,7 +62,8 @@ resource "aws_instance" "main" {
   subnet_id     = aws_subnet.main.id
 
   tags = {
-    Name = "${var.project}-instance-${count.index + 1}"
+    Name    = "${var.project}-instance-${count.index + 1}"
+    Project = var.project
   }
 }
 
