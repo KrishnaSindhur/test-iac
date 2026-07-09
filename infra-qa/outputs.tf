@@ -48,6 +48,16 @@ output "sqs_queue_arn" {
   value       = module.sqs_queue.queue_arn
 }
 
+output "sns_topic_arn" {
+  description = "ARN of the demo SNS topic"
+  value       = module.sns_topic.topic_arn
+}
+
+output "sns_topic_name" {
+  description = "Name of the demo SNS topic"
+  value       = module.sns_topic.topic_name
+}
+
 output "web_security_group_id" {
   description = "ID of the web security group"
   value       = module.sg_web.security_group_id

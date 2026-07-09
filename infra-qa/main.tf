@@ -59,6 +59,18 @@ module "sqs_queue" {
   }
 }
 
+# SNS topic module - 5th unique module type
+module "sns_topic" {
+  source  = "terraform-aws-modules/sns/aws"
+  version = "~> 5.0"
+
+  name = "demo-app-topic-${random_id.bucket_suffix.hex}"
+
+  tags = {
+    Environment = "demo"
+  }
+}
+
 # EC2 module - called 3 times (3 invocations)
 module "ec2_web" {
   source  = "terraform-aws-modules/ec2-instance/aws"
