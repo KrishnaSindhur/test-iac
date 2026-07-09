@@ -47,6 +47,18 @@ resource "random_id" "bucket_suffix" {
   byte_length = 4
 }
 
+# SQS queue module - 4th unique module type (alongside s3, ec2, security-group)
+module "sqs_queue" {
+  source  = "terraform-aws-modules/sqs/aws"
+  version = "~> 4.0"
+
+  name = "demo-app-queue-${random_id.bucket_suffix.hex}"
+
+  tags = {
+    Environment = "demo"
+  }
+}
+
 # EC2 module - called 3 times (3 invocations)
 module "ec2_web" {
   source  = "terraform-aws-modules/ec2-instance/aws"
