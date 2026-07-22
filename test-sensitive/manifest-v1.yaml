@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: iacm-sensitive-count-test
+  namespace: default
+data:
+  version: "v1"

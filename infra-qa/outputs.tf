@@ -38,25 +38,25 @@ output "s3_bucket_name" {
   value       = module.s3_bucket.s3_bucket_id
 }
 
-output "sqs_queue_url" {
-  description = "URL of the demo SQS queue"
-  value       = module.sqs_queue.queue_url
-}
+# output "sqs_queue_url" {
+#   description = "URL of the demo SQS queue"
+#   value       = module.sqs_queue.queue_url
+# }
 
-output "sqs_queue_arn" {
-  description = "ARN of the demo SQS queue"
-  value       = module.sqs_queue.queue_arn
-}
+# output "sqs_queue_arn" {
+#   description = "ARN of the demo SQS queue"
+#   value       = module.sqs_queue.queue_arn
+# }
 
-output "sns_topic_arn" {
-  description = "ARN of the demo SNS topic"
-  value       = module.sns_topic.topic_arn
-}
+# output "sns_topic_arn" {
+#   description = "ARN of the demo SNS topic"
+#   value       = module.sns_topic.topic_arn
+# }
 
-output "sns_topic_name" {
-  description = "Name of the demo SNS topic"
-  value       = module.sns_topic.topic_name
-}
+# output "sns_topic_name" {
+#   description = "Name of the demo SNS topic"
+#   value       = module.sns_topic.topic_name
+# }
 
 output "web_security_group_id" {
   description = "ID of the web security group"
