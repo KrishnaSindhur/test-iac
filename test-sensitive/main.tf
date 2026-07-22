@@ -1,3 +1,4 @@
 resource "kubectl_manifest" "demo" {
-  yaml_body = file("./manifest-v2.yaml")
+  # sensitive() marks yaml_body as sensitive in plan/state output (Harness sensitive-count testing)
+  yaml_body = sensitive(file(var.manifest_file))
 }
