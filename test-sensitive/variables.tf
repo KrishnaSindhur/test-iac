@@ -1,16 +1,5 @@
 terraform {
   required_version = ">= 0.13"
-
-  required_providers {
-    kubectl = {
-      source  = "gavinbunney/kubectl"
-      version = ">= 1.7.0"
-    }
-  }
-}
-
-provider "kubectl" {
-  # Requires a reachable cluster for apply. Plan can run with a valid kubeconfig.
 }
 
 variable "manifest_file" {
