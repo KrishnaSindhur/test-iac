@@ -27,22 +27,6 @@ data "aws_subnets" "default" {
   }
 }
 
-# S3 bucket module - called once
-module "s3_bucket" {
-  source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "3.0.0"
-
-  bucket = "demo-app-bucket-${random_id.bucket_suffix.hex}"
-
-  versioning = {
-    enabled = true
-  }
-
-  tags = {
-    Environment = "demo"
-  }
-}
-
 resource "random_id" "bucket_suffix" {
   byte_length = 4
 }

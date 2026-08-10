@@ -33,11 +33,6 @@ output "db_server_private_ip" {
   value       = module.ec2_db.private_ip
 }
 
-output "s3_bucket_name" {
-  description = "Name of the S3 bucket"
-  value       = module.s3_bucket.s3_bucket_id
-}
-
 # output "sqs_queue_url" {
 #   description = "URL of the demo SQS queue"
 #   value       = module.sqs_queue.queue_url
